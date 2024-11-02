@@ -1,6 +1,6 @@
-import random
 import select
 import sys
+import secrets
 
 # builds a buffer of length len that doesn't have any of the bytes in badBytes
 def buildBuffer(len, badBytes):
@@ -75,7 +75,7 @@ def randomBase64(len, linelen):
       elif pos == npos:
          tmp += '\n'
       else:
-         n = random.randint(0, 63)
+         n = secrets.SystemRandom().randint(0, 63)
          tmp += alpha[n]
 
    return tmp
@@ -93,11 +93,11 @@ def randomSparcNOP(badRegs, badBytes):
    mask = (2 ** 19) - 1
    instruction = 0
    while (intHasBadBytes(instruction, badBytes)):
-      rd = random.randint(0, 31)
+      rd = secrets.SystemRandom().randint(0, 31)
       while rd in badRegs:
-         rd = random.randint(0, 31)
-      opcode = opcodes[random.randint(0, nOpcodes)]
-      rest = random.randint(0, mask)
+         rd = secrets.SystemRandom().randint(0, 31)
+      opcode = opcodes[secrets.SystemRandom().randint(0, nOpcodes)]
+      rest = secrets.SystemRandom().randint(0, mask)
       instruction = (long(int('10', 2)) << 30) \
                     | (long(rd) << 25) \
                     | (long(int(opcode, 2)) << 19) \
