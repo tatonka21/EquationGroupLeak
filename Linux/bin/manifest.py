@@ -10,6 +10,7 @@ import shlex
 import shutil
 import subprocess
 import zipfile
+from security import safe_command
 
 try:
     import menu
@@ -268,7 +269,7 @@ def linparse(manifest):
     # Set the FGTCPASS environment variable and start prepping...
     os.environ['FGTCPASS'] = str(fg_tcpass)
     args = shlex.split(mz_line)
-    mz_proc = subprocess.Popen(args).communicate()
+    mz_proc = safe_command.run(subprocess.Popen, args).communicate()
 
 
 def wincheck(opname):
