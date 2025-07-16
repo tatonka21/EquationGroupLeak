@@ -20,7 +20,7 @@ def check_site():
     # Determine the site
     if os.path.exists(site_file):
         with open(site_file) as file:
-            line = file.readline()
+            line = file.readline(5_000_000)
             site = line.strip()
 
     else:
@@ -75,7 +75,7 @@ def execute():
 
         if os.path.exists(opname_file):
             with open(opname_file, 'r') as file:
-                line = file.readline()
+                line = file.readline(5_000_000)
                 opname = line.strip()
                 opname = opname.upper()
             answer = ''
